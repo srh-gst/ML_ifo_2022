@@ -35,12 +35,27 @@ occ_count = occ_count.reset_index()
 occ_count.columns = ['occupation', 'counts']
 np.count_nonzero(occ_count["occupation"]) #21
 occ_count.loc[occ_count['counts'] == occ_count['counts'].max()]["occupation"] #student
-
-
+occ_count.set_index(["occupation"],inplace=True)
+occ_count = occ_count.sort_index()
+occ_count
 fig, ax = plt.subplots()
-occ_count.plot.scatter(y='counts', x="occupation", ax=ax)
+occ_count.plot.bar(ax=ax)
+fig.tight_layout(pad=2)
+ax.set_xlabel("Frequency of occupation")
+fig.savefig("./output/occupations.pdf")
 
-ax.set(ylabel="Age squared", title="Age vs. Age squared")
+# 3. Iris
+
+FNAME =  "https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data"
+colnames=['sepal_length', 'sepal_width', 'petal_length', 'petal_witdth', 'class']
+df = pd.read_csv(FNAME, sep=",", names = colnames, header = None)
+df.head()
+df.info()
+df.iloc[0:29,2]=np.NaN
+df.iloc[0:29, 2]
+df = df.replace(np.NaN, 1)
+df.to_csv('./output/iris.csv', sep=',')
+
 
 
 
