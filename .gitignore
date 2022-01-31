@@ -1,3 +1,5 @@
 #projectfolder
 .idea
 .ipynb_checkpoints
+.slides
+.scripts
